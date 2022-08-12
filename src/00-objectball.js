@@ -147,15 +147,82 @@ function shoeSize(name) {
   }
 }
 
-console.log(shoeSize("Alan Anderson"));
+function teamColors (name) { 
+  const game = gameObject();
+  for (const team in game) {
+    const teamObj = game[team];
+    for (const teamKey in teamObj) {
+      if (teamObj[teamKey] === name) {
+        return teamObj.colors;
+      }
+    }
+  }
+}
 
-// - Build a function, `shoeSize`, that takes in an argument of a player's name and
-//   returns the shoe size for that player.
-//   - Think about how you will find the shoe size of the correct player. How can
-//     you check and see if a player's name matches the name that has been passed
-//     into the function as an argument?
+function teamNames () {
+  const game = gameObject();
+  let result = [];
+  for (const team in game) {
+    const teamObj = game[team];
+    for (const teamKey in teamObj) {
+      if(teamKey === 'teamName') {
+        result.push(teamObj[teamKey])
+      }
+    }
+  }
+  return result;
+}
+
+function playerNumbers(teamName) {
+  const game = gameObject();
+  const jerseyNums = [];
+  for (const team in game) {
+    const teamObj = game[team];
+    for (const teamObjKey in teamObj) {
+    const teamObjProp = teamObj[teamObjKey];
+      if( teamObjProp === teamName) {
+        const team = {...teamObj};
+        const players = team.players;
+        for (const player in players) {
+          jerseyNums.push(players[player].number);
+        }
+      }
+    }
+  }
+  return jerseyNums;
+}
+
+function playerStats (name) {
+  const game = gameObject();
+  for (const team in game) {
+    const teamObj = game[team];
+    for (const teamKey in teamObj) {
+      const data = teamObj[teamKey];
+      for (const player in data) {
+        if (player === name) {
+          return data[player];
+        }
+      }
+    }
+  }
+}
+
+function mostPointsScored() {
+  const players = Object.assign({}, gameObject().home.players, gameObject().away.players);
+  let winner = {points: 0};
+  let best = '';
+  for (const player in players) {
+    const playerObj = players[player];
+    if (parseInt(playerObj.points) > parseInt(winner.points)) {
+      winner = {...playerObj};
+      best = player;
+    }
+  }
+  console.log(best);
+}
+
 // game = {
-//       home: {
+//       home: {**
 //           teamName: "Brooklyn Nets",
 //           colors: ["Black", "White"],
 //           players: {
