@@ -218,7 +218,7 @@ function mostPointsScored() {
       best = player;
     }
   }
-  console.log(best);
+  return best;
 }
 
 // game = {
